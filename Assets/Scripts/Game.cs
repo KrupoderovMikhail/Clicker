@@ -29,6 +29,10 @@ public class Game : MonoBehaviour
     public Text amount2text;
     public float amount2Profit;
 
+    // Upgrade
+    public int upgradePrize;
+    public Text upgradeText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +58,9 @@ public class Game : MonoBehaviour
         // Amount
         amount1text.text = "Tier 1: " + amount1 + " arts $: " + amount1Profit + "/s";
         amount2text.text = "Tier 2: " + amount2 + " arts $: " + amount2Profit + "/s";
+
+        // Upgrade
+        upgradeText.text = "Cost: " + upgradePrize + " $";
     }
 
     // Hit
@@ -84,6 +91,17 @@ public class Game : MonoBehaviour
             amount2Profit += 5;
             x += 5;
             shop2prize += 125;
+        }
+    }
+
+    // Upgrade
+    public void Upgrade()
+    {
+        if (currentScope >= upgradePrize)
+        {
+            currentScope -= upgradePrize;
+            hitPower *= 2;
+            upgradePrize *= 3;
         }
     }
 }
