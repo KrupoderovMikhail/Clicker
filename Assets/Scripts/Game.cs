@@ -41,6 +41,31 @@ public class Game : MonoBehaviour
         hitPower = 1;
         scoreIncreasedPerSecond = 1;
         x = 0F;
+
+        // We must set  all default variables before load
+        shop1prize = 25;
+        shop2prize = 125;
+        amount1 = 0;
+        amount1Profit = 1;
+        amount2 = 0;
+        amount2Profit = 5;
+
+        // Reset line
+        // PlayerPrefs.DeleteAll();
+
+        // Load
+        currentScope = PlayerPrefs.GetInt("currentScore", 0);
+        hitPower = PlayerPrefs.GetInt("hitPower", 1);
+        x = PlayerPrefs.GetInt("x", 0);
+
+        shop1prize = PlayerPrefs.GetInt("shop1prize", 25);
+        shop2prize = PlayerPrefs.GetInt("shop2prize", 125);
+        amount1 = PlayerPrefs.GetInt("amount1", 0);
+        amount1Profit = PlayerPrefs.GetInt("amount1Profit", 0); 
+        amount2 = PlayerPrefs.GetInt("amount2", 0);
+        amount2Profit = PlayerPrefs.GetInt("amount2Profit", 0);
+        upgradePrize = PlayerPrefs.GetInt("upgradePrize", 50);
+
     }
 
     // Update is called once per frame
@@ -61,6 +86,19 @@ public class Game : MonoBehaviour
 
         // Upgrade
         upgradeText.text = "Cost: " + upgradePrize + " $";
+
+        // Save
+        PlayerPrefs.SetInt("currentScore", (int) currentScope);
+        PlayerPrefs.SetInt("hitPower", (int) hitPower);
+        PlayerPrefs.SetInt("x", (int) x);
+
+        PlayerPrefs.SetInt("shop1prize",  (int) shop1prize);
+        PlayerPrefs.SetInt("shop2prize", (int) shop2prize);
+        PlayerPrefs.SetInt("amount1", (int) amount1);
+        PlayerPrefs.SetInt("amount1Profit", (int) amount1Profit);
+        PlayerPrefs.SetInt("amount2", (int) amount2);
+        PlayerPrefs.SetInt("amount2Profit", (int)  amount2Profit);
+        PlayerPrefs.SetInt("upgradePrize", (int) upgradePrize);
     }
 
     // Hit
