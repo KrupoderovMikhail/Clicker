@@ -33,6 +33,17 @@ public class Game : MonoBehaviour
     public int upgradePrize;
     public Text upgradeText;
 
+    // New
+    public int allUpgradePrize;
+    public Text allUpgradeText;
+
+    // Achievement
+    public bool achievementScore;
+    public bool achievementShop;
+
+    public Image image1;
+    public Image image2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,7 +62,7 @@ public class Game : MonoBehaviour
         amount2Profit = 5;
 
         // Reset line
-        // PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
 
         // Load
         currentScope = PlayerPrefs.GetInt("currentScore", 0);
@@ -66,6 +77,8 @@ public class Game : MonoBehaviour
         amount2Profit = PlayerPrefs.GetInt("amount2Profit", 0);
         upgradePrize = PlayerPrefs.GetInt("upgradePrize", 50);
 
+        // New
+        allUpgradePrize = 500;
     }
 
     // Update is called once per frame
@@ -99,6 +112,38 @@ public class Game : MonoBehaviour
         PlayerPrefs.SetInt("amount2", (int) amount2);
         PlayerPrefs.SetInt("amount2Profit", (int)  amount2Profit);
         PlayerPrefs.SetInt("upgradePrize", (int) upgradePrize);
+
+        // New
+        allUpgradeText.text = "Cost: " + allUpgradePrize + " $";
+
+        // Achievement
+        if (currentScope >= 50)
+        {
+            achievementScore = true;
+        }
+
+        if (amount1 >= 2)
+        {
+            achievementShop = true;
+        }
+
+        if (achievementScore == true)
+        {
+            image1.color = new Color(1F, 1F, 1F, 1F);
+        }
+        else
+        {
+            image1.color = new Color(0.2F, 0.2F, 0.2F, 0.2F);
+        }
+
+        if (achievementShop == true)
+        {
+            image2.color = new Color(1F, 1F, 1F, 1F);
+        }
+        else
+        {
+            image2.color = new Color(0.2F, 0.2F, 0.2F, 0.2F);
+        }
     }
 
     // Hit
@@ -141,5 +186,28 @@ public class Game : MonoBehaviour
             hitPower *= 2;
             upgradePrize *= 3;
         }
+    }
+
+    // New
+    public void AllProfitsUpgrade()
+    {
+        if (currentScope >= allUpgradePrize)
+        {
+            currentScope -= allUpgradePrize;
+            x *= 2;
+            allUpgradePrize *= 3;
+            amount1Profit *= 2;
+            amount2Profit *= 2;
+        }
+    }
+
+   public void DeleteAll()
+    {
+        PlayerPrefs.DeleteAll();
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
